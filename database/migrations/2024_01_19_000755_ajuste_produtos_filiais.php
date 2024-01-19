@@ -17,7 +17,7 @@ class AjusteProdutosFiliais extends Migration
         Schema::create('filiais', function(Blueprint $table){
             $table->id();
             $table->string('filial', 30);
-            $table->timestamp();
+            $table->timestamps();
         });
         
         //criando a tabela auxiliar produto_filiais
@@ -29,7 +29,7 @@ class AjusteProdutosFiliais extends Migration
             $table->float('preco_venda', 8, 2)->default(0.1);
             $table->integer('estoque_minimo')->default(1);
             $table->integer('estoque_maximo')->default(1);
-            $table->timestamp();
+            $table->timestamps();
             //constraint
             $table->foreign('filial_id')->references('id')->on('filiais');
             $table->foreign('produto_id')->references('id')->on('produtos');
