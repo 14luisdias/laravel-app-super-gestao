@@ -9,30 +9,52 @@ class ContatoController extends Controller
 {
     public function contato(Request $request){
         $titulo = 'Super Gestão - Contato';
+
+        $contato = new SiteContato();
         /*
         //print_r($_POST);
         echo'<pre>';
         print_r($request->all());
         echo'</pre>';
         */
-        /* uma maneira de slavar - no meu não deu certo assim
-        $contato = new SiteContato(); //instanciar a minha classe do meu models
-        $contato->nome = $request->input('nome');
-        $contato->telefone = $request->input('telefone');
-        $contato->email = $request->input('email');
-        $contato->motivo_contato = $request->input('motivo_contato');
-        $contato->mensagem = $request->input('mensagem');
-        //print_r($contato->getAttributes());
-        $contato->save();
-        */
-        $contato = new SiteContato();
+       /*
+        if ($request->input('nome') != null){
+            //uma maneira de slavar - no meu não deu certo assim
+            $contato = new SiteContato(); //instanciar a minha classe do meu models
+            $contato->nome = $request->input('nome');
+            $contato->telefone = $request->input('telefone');
+            $contato->email = $request->input('email');
+            $contato->motivo_contato = $request->input('motivo_contato');
+            $contato->mensagem = $request->input('mensagem');
+            //print_r($contato->getAttributes());
+            $contato->save();
+        } else {
+            # code...
+            
+        }
+        */     
         
+        /*
         $contato->fill($request->all());
         //$contato->nome = 'Jorge';
         //print_r($contato->getAttributes());
         $contato->save();
-
+        */
         return view('sites.contato',compact('titulo'));
            
     }
+    public function salvar(Request $request){
+
+        //$contato = new SiteContato();
+        //validar os dados dados da request
+        $request->validate([
+            'nome'=>'required',
+            'telefone'=>'required',
+            'email'=>'required',
+            'motivo_contato'=>'required',
+            'mensagem'=>'required'
+        ]);
+        //SiteContato::create($request->all());
+   
+   }
 }
