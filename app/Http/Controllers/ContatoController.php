@@ -10,7 +10,14 @@ class ContatoController extends Controller
     public function contato(Request $request){
         $titulo = 'Super Gestão - Contato';
 
-        $contato = new SiteContato();
+        //$contato = new SiteContato();
+        $motivo_contato = [
+            '1' => 'Dúvida',
+            '2' => 'Elogio',
+            '3' => 'Reclamação'
+        ];
+        return view('sites.contato',compact('titulo', 'motivo_contato'));
+        //return view('sites.contato', ['titulo'=>$titulo, 'motivo_contato'=>$motivo_contato]);
         /*
         //print_r($_POST);
         echo'<pre>';
@@ -40,7 +47,8 @@ class ContatoController extends Controller
         //print_r($contato->getAttributes());
         $contato->save();
         */
-        return view('sites.contato',compact('titulo'));
+
+       
            
     }
     public function salvar(Request $request){
@@ -48,11 +56,12 @@ class ContatoController extends Controller
         //$contato = new SiteContato();
         //validar os dados dados da request
         $request->validate([
-            'nome'=>'required',
+            'nome'=>'required|min:3|max:40', //nomes com no mínimo 3 carateres e maximo de 40
             'telefone'=>'required',
             'email'=>'required',
             'motivo_contato'=>'required',
-            'mensagem'=>'required'
+            'mensagem'=>'required|max:2000'
+            
         ]);
         //SiteContato::create($request->all());
    
