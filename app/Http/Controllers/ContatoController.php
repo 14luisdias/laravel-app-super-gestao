@@ -4,19 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request; //ele traz do front-end os dados para enviar ao BD - os nomes tem de estar igual a do banco
 use App\SiteContato; //trazer o models SiteContato para trabalhar com o eloquent ORM e oenviarBanco de Dados
-
+use App\MotivoContato; //trazer o models MotivoContato para trabalhar com o eloquent ORM e oenviarBanco de Dados
 class ContatoController extends Controller
 {
     public function contato(Request $request){
         $titulo = 'Super Gestão - Contato';
 
         //$contato = new SiteContato();
-        $motivo_contato = [
-            '1' => 'Dúvida',
-            '2' => 'Elogio',
-            '3' => 'Reclamação'
-        ];
-        return view('sites.contato',compact('titulo', 'motivo_contato'));
+        $motivos_contatos = MotivoContato::all();
+        return view('sites.contato',compact('titulo', 'motivos_contatos'));
         //return view('sites.contato', ['titulo'=>$titulo, 'motivo_contato'=>$motivo_contato]);
         /*
         //print_r($_POST);
