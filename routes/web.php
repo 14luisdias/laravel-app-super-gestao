@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\LogAcessoMiddleware;
+use App\LogAcesso;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */ 
 // ->name('') nomeando rotas
-Route::get('/','PrincipalController@principal')->name('site.index');
+// rota principal
+Route::middleware(LogAcessoMiddleware::class)->get('/','PrincipalController@principal')->name('site.index');
 Route::get('/sobre-nos', 'SobreNosController@sobrenos')->name('site.sobrenos');
-//***********
-Route::get('/contato', 'ContatoController@contato')->name('site.contato');
+//***********Rota Contato
+Route::middleware(LogAcessoMiddleware::class)->get('/contato', 'ContatoController@contato')->name('site.contato');
 Route::post('/contato', 'ContatoController@salvar')->name('site.contato');
-//**************
+//**************Rota Login
 Route::get('/login', function(){return 'Login';})->name('site.login');
 
-//app * agrupamento de rotas
+//app * agrupamento de rotas - Rota de Aplicativos
+
 Route::prefix('app')->group(function(){
         Route::get('/cliente', function(){return 'Clientes';})->name('app.cliente');
         Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
